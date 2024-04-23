@@ -63,6 +63,8 @@ $ sudo apt-get install autoconf automake autotools-dev curl python3 python3-pip 
 $./configure --prefix=/opt/riscv
 $ sudo make linux
 ```
+![Screenshot 2024-04-24 014923](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/b92247d2-5787-4869-9e96-d9817b17fcfe)
+
 
 ### Steps to install vim text editor
 ```
