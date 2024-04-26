@@ -134,18 +134,33 @@ The RISC-V processor works through 5 stages--
 * <b>Memory</b>-- the values will be written in the memory or sometimes read the values from the memory.
 * <b>Write back</b>-- Most of the time whatever the results ALU produces will be written back to the register primarily in the destination registers.
 
+
 ### RISC-V Instruction Set Architecture
 
 
+![WhatsApp Image 2024-04-27 at 00 10 12](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/443fd00a-1e49-479f-9c3e-16e7f3ca7ec0)
+
+Overall the performance depends on various parameters.
+* `Algorithm` decides how many instructions could be there and based on the algorithm we choose to implement a particular software application which decides how many instructions it is going to demand.
+* Also, the choice of a `Programming language` defines no of instructions per program. i.e. there is a difference between C and C++. C++ might demand less no of instructions because it is more based on object-oriented programming.
+* The performance also depends on how we design the `compiler`. If the compiler is efficient enough to produce fewer instructions, then it will have a huge impact on the instruction count.
+* `ISA` which is the definition for both the  compiler and processor design, controls everything such as instructions count, CPI, and clock rate. 
+When it comes to hardware, we look at how to improve the performance of the hardware by reducing the clock period(seconds/clock cycle), then we would be able to improve the frequency and then we can execute more no of instructions.
+
+
+![WhatsApp Image 2024-04-27 at 00 39 37](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/8e7283b0-04f3-401c-bb6c-989b6e8b2638)
+
+
+This is how we can visualize the ISA. It defines the main components like `registers file`, `ALU`, and `Memory`. So the memory is going to have both-- Instruction(machine language) and data(binary). Everything is going to be 32 bits i.e. whatever the assembly program we write, is going to be converted into 32 bits which is machine language and that is stored in the memory. In memory, we do byte addressing and also there is a register file that contains 32 registers each of 32 bits. So RV32I means RISC-V 32-bit integer instructions. The ALU sometimes writes the results into registers and sometimes it writes into memory. So we need different kinds of instructions {R (register type) and I (immediate type)} to support data flow between registers and ALU. To implement data flow between registers and memory we need additional instructions like `I` and `S` type instructions. We also need other types of instructions for control flow which are `B`, `J`, `U`, and `I` type instructions.
 
 ### The VSDSquadron Mini RISC-V development board – Features and Interfaces:
 
-* Core Processor – The board is powered by CH32V003F4U6 chip with 32-bit RISC-V core based on RV32EC instruction set, optimized for high-performance computing with support for 2-level interrupt nesting and supports 24MHz system main frequency in the product function.
+* Core Processor – The board is powered by a CH32V003F4U6 chip with a 32-bit RISC-V core based on RV32EC instruction set, optimized for high-performance computing with support for 2-level interrupt nesting and supports 24MHz system main frequency in the product function.
 * Clock and Reset Systems: Includes a built-in factory-trimmed 24MHz RC oscillator and a 128kHz RC oscillator, plus an external 24MHz oscillator option for varied clocking requirements.
 * Robust GPIO Support: Boasts 3 groups of GPIO ports, totaling 15 I/O ports, enabling extensive peripheral connections and mapping to external interrupt capabilities.
 * Flexible Communication Interfaces: Offers multiple communication protocols including USART, I2C, and SPI for versatile connectivity options.
-* High-Speed Memory: Equipped with 2KB SRAM for volatile data storage, 16KB CodeFlash for program memory, and additional 1920B for bootloader functionalities.
-* On-board Programmer: Features on-board CH32V305FBP6 single-wire programming protocol, enhancing development efficiency with seamless code deployment and debugging. NO NEED to purchase any additional adapter.
+* High-Speed Memory: Equipped with 2KB SRAM for volatile data storage, 16KB CodeFlash for program memory, and an additional 1920B for bootloader functionalities.
+* On-board Programmer: Features on-board CH32V305FBP6 single-wire programming protocol, enhancing development efficiency with seamless code deployment and debugging. NO NEED to purchase any additional adapters.
 
 ### Block Diagram
 <b> The following block diagram shows the key components of the VSDSquadron Mini RISC-V development board.
