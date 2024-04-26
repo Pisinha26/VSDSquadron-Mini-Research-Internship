@@ -97,8 +97,46 @@ Coming to the software, there could be many layers-- `application software` (cre
 ![image](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/a1a03093-3cbe-434b-8e55-8bc4e718da86)
 
 
+![image](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/bf18c839-dba9-4754-914f-849d1ae0a753)
+
+
+![WhatsApp Image 2024-04-26 at 23 09 37](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/b8cec056-82c4-4d54-88a1-a4f0b0a2fbf2)
+
+
+To convert the assembly language program into a machine language program, it follows RISC-V ISA which defines the format of the instructions like `R-type`, `I-type`, `S-type`, `B-type`, `U-type`, and `J-type`. So based on the format, the instructions get converted into binary.
+
+
+## C-code Compilation Process
+
+![Screenshot 2024-04-26 233426](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/3f9def57-ce31-4d0d-b072-7164ebdfee82)
+
+
+## RISC-V ISA & Processor
+
+![WhatsApp Image 2024-04-26 at 23 09 36](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/b9b1c971-cc44-4563-a559-a49a11d4ce9f)
+
+It's an abstract interface between low-level software (compiler, Assembler) and low-level  hardware(processor). 
+An embedded system engineer is going to refer to RISC-V ISA and based on the specifications he is going to design the compiler.
+So basically the compiler should support all the instructions and be able to convert any kind of high-level language into RISC-V  assembly language.
+VLSI engineer is also going to look at RISC-V ISA as a golden reference and he will implement the RTL design.
+
+
+## RISC-V Execution Stages
+
+![WhatsApp Image 2024-04-26 at 23 09 35](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/9cf57d4d-6e2c-4d35-981b-e00d54dcb50b)
+
+
+The RISC-V processor works through 5 stages--
+`Fetch`, `decode`, `execute`, `memory`, `write back`.
+* <b>Fetch</b>-- The instructions will be loaded in instruction memory, so the processor is going to read the instructions mostly sequentially and sometimes in a non-sequential manner. the processor has got a special register called program counter which will always increment by 4 because in RISC-V we do byte addressing. This is how the processor will fetch the instructions from memory.
+* <b>Decode</b>-- Then the decoder will decode the instructions.
+* <b>Execute</b>-- The decoder will then communicate to the ALU what kind of operations it has to perform. So as part of the execution, the ALU is going to perform operations like arithmetic operations, logic operations, shift operations, etc. and based on the functionality, it is going to produce the output, and the results will be stored sometimes in memory and most of the time, it will be stored back  into the registers. 
+* <b>Memory</b>-- the values will be written in the memory or sometimes read the values from the memory.
+* <b>Write back</b>-- Most of the time whatever the results ALU produces will be written back to the register primarily in the destination registers.
 
 ## RISC-V Instruction Set Architecture
+
+
 
 ### The VSDSquadron Mini RISC-V development board – Features and Interfaces:
 
