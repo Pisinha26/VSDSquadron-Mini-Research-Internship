@@ -127,7 +127,7 @@ VLSI engineer is also going to look at RISC-V ISA as a golden reference and he w
 
 
 The RISC-V processor works through 5 stages--
-`Fetch`, `decode`, `execute`, `memory`,     `write back`.
+`Fetch`,  `decode`,  `execute`,  `memory`,  `write back`.
 * <b>Fetch</b>-- The instructions will be loaded in instruction memory, so the processor is going to read the instructions mostly sequentially and sometimes in a non-sequential manner. the processor has got a special register called program counter which will always increment by 4 because in RISC-V we do byte addressing. This is how the processor will fetch the instructions from memory.
 * <b>Decode</b>-- Then the decoder will decode the instructions.
 * <b>Execute</b>-- The decoder will then communicate to the ALU what kind of operations it has to perform. So as part of the execution, the ALU is going to perform operations like arithmetic operations, logic operations, shift operations, etc. and based on the functionality, it is going to produce the output, and the results will be stored sometimes in memory and most of the time, it will be stored back  into the registers. 
