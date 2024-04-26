@@ -1,13 +1,13 @@
 # VSDSquadron-Mini-Research-Internship
 **STEP 1-- Download Oracle Virtual Box from [here](https://www.virtualbox.org/wiki/Downloads)**
-<br>**STEP 2-- Download UBUNTU for desktop which we will run inside the Virtual Box from [here](https://ubuntu.com/download/desktop)**
- * Then open the virtual box and click on new and then give any name as "opensource_eda_ubuntu" and select "linux" and ubunutu(64-bit) from the dropdown box.
- * After that specify the size of the virtual box as 40GB or more.
- * On the main screen of virtual box, click on the "optical drive" and add downloaded ubuntu file.
- * Then click on the start arrow at the top.
- * Then fill in the name,company name, username and password.
- * After that a dialog box will appear. click on "install ubuntu".
- * Then wait for sometime and after the installation of ubuntu, right click--open terminal.
+<br>**STEP 2-- Download UBUNTU for the desktop which we will run inside the Virtual Box from [here](https://ubuntu.com/download/desktop)**
+ * Then open the `Virtual box` and click on new and then give any name as `opensource_eda_ubuntu` and select `Linux` and `Ubuntu (64-bit)` from the dropdown box.
+ * After that specify the size of the virtual box as `40GB` or more.
+ * On the main screen of the Virtual box, click on the `optical drive` and add the downloaded Ubuntu file.
+ * Then click on the `start arrow` ➡️ at the top.
+ * Then fill in the `name`, `company name`, `username` and `password`.
+ * After that a dialog box will appear. click on `install ubuntu`.
+ * Then wait for sometime and after the installation of ubuntu, `right-click -- open terminal`.
  * Now the command terminal gets opened as shown below.
 
 
@@ -79,6 +79,23 @@ $ cd Documents
 $ vim hello.c
 ```
 press i to insert and type the code and save the file using esc:wq and enter.
+
+
+## RISC-V
+
+### Why RISC-V Processors?
+
+Any complex electronic system is composed of hardware and software.
+We create hardware using complex SOC. So this SOC will have almost all the components needed for the system. And the processor is going to be the main component.
+So whatever the application we run, all applications will be converted into processor instructions and eventually all the instructions will be executed by the processor.
+The SOC can have a dual or quadcore processor to run multiple applications in parallel and that's what the operating system does.
+For example-- when we click on any particular mobile application, the operating system loads the equivalent binary into RAM and then it loads the starting address of the binary into the program counter. All the processor has a special register called program counter and the program counter will increment sequentially and that is how the processor is going to fetch all the instructions from the memory.
+So this particular application which we click on, has already been compiled into the processor instructions in terms of binary i.e. machine language and that is stored in storage memory.
+
+Coming to the software, there could be many layers-- `application software` (created using a high-level language like C, C++, Java), `operating system` (manages i/o operations, and memory and is responsible for running many applications in parallel), `RISC-V compiler`, `RISC-V Assembler`.
+
+![image](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/a1a03093-3cbe-434b-8e55-8bc4e718da86)
+
 
 
 ## RISC-V Instruction Set Architecture
