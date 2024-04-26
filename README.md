@@ -153,6 +153,18 @@ When it comes to hardware, we look at how to improve the performance of the hard
 
 This is how we can visualize the ISA. It defines the main components like `registers file`, `ALU`, and `Memory`. So the memory is going to have both-- Instruction(machine language) and data(binary). Everything is going to be 32 bits i.e. whatever the assembly program we write, is going to be converted into 32 bits which is machine language and that is stored in the memory. In memory, we do byte addressing and also there is a register file that contains 32 registers each of 32 bits. So RV32I means RISC-V 32-bit integer instructions. The ALU sometimes writes the results into registers and sometimes it writes into memory. So we need different kinds of instructions {R (register type) and I (immediate type)} to support data flow between registers and ALU. To implement data flow between registers and memory we need additional instructions like `I` and `S` type instructions. We also need other types of instructions for control flow which are `B`, `J`, `U`, and `I` type instructions.
 
+
+<b>RISC-V RV32I Instruction Set</b>
+* `R-type` : Register to Register instructions
+* `I-type` : Register Immediate, Load, JLR, Ecall & Ebreak
+* `S-type` : Store
+* `B-type` : Branch
+* `J-type` : Jump & Link
+* `U-type` : Load/Add upper Immediate
+
+
+
+
 ### The VSDSquadron Mini RISC-V development board – Features and Interfaces:
 
 * Core Processor – The board is powered by a CH32V003F4U6 chip with a 32-bit RISC-V core based on RV32EC instruction set, optimized for high-performance computing with support for 2-level interrupt nesting and supports 24MHz system main frequency in the product function.
