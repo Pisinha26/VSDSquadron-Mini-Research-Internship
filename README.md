@@ -134,7 +134,7 @@ The RISC-V processor works through 5 stages--
 * <b>Memory</b>-- the values will be written in the memory or sometimes read the values from the memory.
 * <b>Write back</b>-- Most of the time whatever the results ALU produces will be written back to the register primarily in the destination registers.
 
-## RISC-V Instruction Set Architecture
+### RISC-V Instruction Set Architecture
 
 
 
