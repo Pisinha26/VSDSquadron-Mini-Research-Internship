@@ -160,6 +160,80 @@ example - let x12 = 00100, x13 = 00010
 ```
 
 
+### I-Type Instruction
+
+<pre>
+| <sup>31</sup>           <b>imm[11:0]</b>           <sup>20</sup> | <sup>19</sup>  <b>rs1</b>  <sup>15</sup> | <sup>14</sup>  <b>funct3</b>  <sup>12</sup>| <sup>11</sup>  <b>rd</b>  <sup>7</sup> | <sup>6</sup>  <b>opcode</b>  <sup>0</sup> |
+
+
+| <sup>31</sup>  <b>imm[11:5]</b>  <sup>25</sup> | <sup>24</sup>  <b>imm[4:0]</b>  <sup>20</sup> | <sup>19</sup>  <b>rs1</b>  <sup>15</sup> | <sup>14</sup>  <b>funct3</b>  <sup>12</sup>| <sup>11</sup>  <b>rd</b>  <sup>7</sup> | <sup>6</sup>  <b>opcode</b>  <sup>0</sup> |
+</pre>          
+          
+</pre>
+
+* I-type involves a constant called `immediate value` for which 12 bits are allocated imm[11:0].
+* There are two registers-- source register `rs1` and destination register `rd`.
+* Function will be defined by `funct3` of 3 bits and operations will be performed between the source register(rs1) and the constant(immediate value).
+* `Opcode` defines the instructions as of I-type.
+
+| Instructions  | Name                    | FMT  | opcode  | funct3  |      funct7       | Description        |
+|:----------------: |---------------------------- |:-------: |:----------: |:----------: |:--------------------: |----------------------- |
+|      _addi_       | ADD Immediate               |    I     |  001_0011   |     000     |                       | rd =rs1 + IMMI         |
+|      _xori_       | XOR Immediate               |    I     |  001_0011   |     100     |                       | rd =rs1 ^ IMMI         |
+|       _ori_       | OR Immediate                |    I     |  001_0011   |     110     |                       | rd =rs1 \| IMMI        |
+|      _andi_       | AND Immediate               |    I     |  001_0011   |     111     |                       | rd =rs1 & IMMI         |
+|      _slli_       | Shift left logical Imm      |    I     |  001_0011   |     001     | imm[11:5] = 000_0000  | rd =rs1 << imm[4:0]    |
+|      _srli_       | Shift right logical Imm     |    I     |  001_0011   |     101     | imm[11:5] = 000_0000  | rd =rs1 >>u imm[4:0]   |
+|      _srai_       | Shift right arithmetic Imm  |    I     |  001_0011   |     101     | imm[11:5] = 010_0000  | rd =rs1 >>s imm[4:0]   |
+|      _slti_       | Set less than Imm           |    I     |  001_0011   |     010     |                       | rd =(rs1 s< IMMI)?1:0  |
+|      _sltiu_      | Set less than Imm(U)        |    I     |  001_0011   |     011     |                       | rd =(rs1 u< IMMI)?1:0  |
+
+`IMMI = SXT(imm[11:0])`
+
+* `addi` is the arithmetic instruction.
+* `andi`, `ori` & `xori` are the logical instructions.
+* `slli`, `srli` & `srai` are the shift instructions.
+* `slti` & `sltiu` are the comparison instructions.
+
+
+
+* We calculate IMMI(immediate value) by doing a sign extension. There are 12 bits, so the remaining bits will be filled with sign bits, so eventually it is going to be 32 bits. So both `IMMI` and `rs1` are 32 bits, so the destination register `rd` will have the value of 32 bits.
+* When it comes to shift operation, we use the subset of the immediate value i.e. `imm[4:0]` which defines the shift amount and how many bits we want to shift either left or right.
+* Coming to the shift right arithmetic `srai`, it will add the sign bit.
+
+examples:
+```
+addi x30, x12, 2   # x30 = x12 + 2
+xori x30, x12, 2   # x30 = x12 ^ 2
+srli x30, x12, 2   # x30 = x12 >> 2
+
+# addi for subtraction:
+addi x30, x12, -2   # x30 = x12 + (-2)     --(2's compliment binary value)
+```
+
+complex example:
+```
+How to perform  a=((b+2)<<c)&5 ??
+
+source registers--- (x12 = b), (x13 = c)
+destination register(rd)--- (x30 = a)
+temporary registers--- (x28 for t1) and (x29 for t2)
+
+logic--- t1 = b+2;
+         t2 = t1 << c;
+         a = t2 & 5;
+
+The RISC-V Assembly program would look something like this:
+       addi x28, x12, 2
+       sll x29, x28, x13
+       andi x30, x29, 5
+```
+
+
+ ### S-Type Instruction
+
+
+ 
 ### The VSDSquadron Mini RISC-V development board – Features and Interfaces:
 
 * Core Processor – The board is powered by a CH32V003F4U6 chip with a 32-bit RISC-V core based on RV32EC instruction set, optimized for high-performance computing with support for 2-level interrupt nesting and supports 24MHz system main frequency in the product function.
