@@ -5,9 +5,9 @@
  * After that specify the size of the virtual box as `40GB` or more.
  * On the main screen of the Virtual box, click on the `optical drive` and add the downloaded Ubuntu file.
  * Then click on the `start arrow` ➡️ at the top.
- * Then fill in the `name`, `company name`, `username` and `password`.
+ * Then fill in the `name`, `company name`, `username`, and `password`.
  * After that a dialog box will appear. click on `install ubuntu`.
- * Then wait for sometime and after the installation of ubuntu, `right-click -- open terminal`.
+ * Then wait for some time and after the installation of Ubuntu, `right-click -- open terminal`.
  * Now the command terminal gets opened as shown below.
 
 
