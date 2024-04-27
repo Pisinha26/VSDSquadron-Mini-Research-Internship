@@ -106,7 +106,7 @@ press i to insert and type the code and save the file using esc:wq and enter.
 * Different operations could be like ADD/SLT/SLTU, AND/OR/XOR, SLL/SRL, SUB/SRA.
 * `opcode` field of 7 bits defines whether instructions are of R-type.
 
-| Instructions  | Name                 | FMT  | opcode  | funct3  | funct7  | Description       |
+|   Instructions    |          Name            |    FMT   |    opcode   |    funct3   |    funct7   |     Description       |
 |:----------------: |------------------------- |:-------: |:----------: |:----------: |:----------: |---------------------- |
 |       _add_       | ADD                      |    R     |  011_0011   |     000     |  000_0000   | rd =rs1 + rs2         |
 |       _sub_       | SUB                      |    R     |  011_0011   |     000     |  010_0000   | rd =rs1 - rs2         |
@@ -178,7 +178,7 @@ Format: INSTR rd, rs1, rs2
 * Function will be defined by `funct3` of 3 bits and operations will be performed between the source register(rs1) and the constant(immediate value).
 * `Opcode` defines the instructions as of I-type.
 
-| Instructions  | Name                    | FMT  | opcode  | funct3  |      funct7       | Description        |
+|   Instructions    |           Name              |    FMT   |    opcode   |    funct3   |        funct7         |     Description        |
 |:----------------: |---------------------------- |:-------: |:----------: |:----------: |:--------------------: |----------------------- |
 |      _addi_       | ADD Immediate               |    I     |  001_0011   |     000     |                       | rd =rs1 + IMMI         |
 |      _xori_       | XOR Immediate               |    I     |  001_0011   |     100     |                       | rd =rs1 ^ IMMI         |
@@ -247,7 +247,7 @@ complex example:
 * Store is primarily used for writing the value in memory.
 
 
-| Instructions  | Name         | FMT  | opcode  | funct3  | Description      | Note  |
+|    Instructions   |      Name        |    FMT   |    opcode   |    funct3   |     Description      |         Note           |
 |:----------------: |----------------- |:-------: |:----------: |:----------: |--------------------- |----------------------- |
 |       _lb_        | Load Byte        |    I     |  000_0011   |     000     | rd = M[rs1 + IMMI]   |                        |
 |       _lh_        | Load Half        |    I     |  000_0011   |     001     | rd = M[rs1 + IMMI]   |                        |
@@ -304,7 +304,7 @@ example:
 * `PC = PC + 4`;
 
 
-| Instructions  | Name      | FMT  | opcode  | funct3  | Description                   | Note                      |
+|   Instructions    |     Name      |    FMT   |    opcode   |    funct3   |         Description               |           Note                |
 |:----------------: |-------------- |:-------: |:----------: |:----------: |---------------------------------- |------------------------------ |
 |       _beq_       | Branch ==     |    B     |  110_0011   |     000     | if(rs1 == rs2)<br>  PC += IMMB    |                               |
 |       _bne_       | Branch !=     |    B     |  110_0011   |     001     | if(rs1 != rs2)<br>  PC += IMMB    |                               |
@@ -336,7 +336,98 @@ example:
 ### J-Type Instruction
 
 
+|   Instructions    |        Name          |    FMT   |   opcode    |    funct3   |         Description               |           Note                |
+|:----------------: |--------------------- |:-------: |:----------: |:----------: |---------------------------------- |:----------------------------: |
+|       _jal_       | Jump and link        |    J     |  110_1111   |             | rd=PC+4;<br>PC+=IMMJ              | IMMJ=SXT({imm[20:1],1'b0})    |
+|      _jalr_       | Jump and link reg    |    I     |  110_0111   |     000     | rd=PC+4;<br>PC={(rs1+IMMI),1'b0}  | IMMI=SXT(imm[11:0])           |
+|       _lui_       | Load upper Imm       |    U     |  011_0111   |             | rd=IMMU                           | IMMU={imm[31:12],12'b0}       |
+|      _auipc_      | Add upper Imm to PC  |    U     |  001_0111   |             | rd=PC+IMMU                        |                 "             |
+|      _ecall_      | Environment call     |    I     |  111_0011   |     000     | Transfer Control to OS            | imm[11:0]=0000_0000_0000      |
+|     _ebreak_      | Environment break    |    I     |  111_0011   |     000     | Transfer Control to debugger      | imm[11:0]=0000_0000_0001      |
 
+
+<b>Jump and Link</b>
+
+<pre>
+| <sup>31</sup>  <b>imm[20]</b> | <sup>30</sup>  <b>imm[10:1]</b>  <sup>21</sup> | <sup>20</sup>  <b>imm[11]</b> | <sup>19</sup>  <b>imm[19:12]</b>  <sup>12</sup> | <sup>11</sup>  <b>rd</b>  <sup>7</sup> | <sup>6</sup>  <b>opcode</b>  <sup>0</sup> |
+</pre>
+
+* JAL: J-Type
+* `IMMJ = { SXT(IMM[20:1]), 1'b0}`  --This is how we basically calculate the offset.
+* `JAL: rd=PC+4, PC=PC+IMMJ`
+
+example:
+```
+jal rd, label
+rd = PC + 4
+PC = + imm
+
+* jal does uncoditional jump and link.
+* label encoded as an offset from the current address.
+* only 20 bits allocated for IMM so it can maximum address only 2^20.
+```
+
+
+<b>JALR</b>
+
+<pre>
+| <sup>31</sup>  <b>imm[11:0]</b>  <sup>20</sup> | <sup>19</sup>  <b>rs1</b>  <sup>15</sup> | <sup>14</sup>  <b>funct3</b>  <sup>12</sup> | <sup>11</sup>  <b>rd</b>  <sup>7</sup> | <sup>6</sup>  <b>opcode</b>  <sup>0</sup> |
+</pre>
+
+* JALR: I-Type
+* `IMMI = SXT(imm[11:0])`
+* `JALR: rd=PC+4, PC={(rs1 + IMMI), 1'b0}`
+
+* JAL: J-Type
+* `IMMJ = { SXT(IMM[20:1]), 1'b0}`  --This is how we basically calculate the offset.
+* `JAL: rd=PC+4, PC=PC+IMMJ`
+
+example:
+```
+jalr rd, imm(rs)
+rd = PC + 4
+PC = rs +imm
+
+* jalr does uncoditional jump to end link register.
+* in this case, the jump will be calculated like (immediate value + rs).
+  so, we can define 32 bits value through this register "rs".
+* it can long jump within 2^32 locations and that's the difference between
+  jal & jalr because in jal instruction, the max range was 0 to 2^20 locations
+  but in case of jalr, the max range is 0 to 2^32 locations.
+```
+
+
+### U-Type Instruction
+
+
+<pre>
+| <sup>31</sup>  <b>imm[31:12]</b>  <sup>12</sup> | <sup>11</sup>  <b>rd</b>  <sup>7</sup> | <sup>6</sup>  <b>opcode</b>  <sup>0</sup> |
+</pre>
+
+| imm[31:12]      |    rd   |    0110111   |     LUI    |
+|---------------- |-------- |------------- |----------- |
+| **imm[31:12]**  | **rd**  | **0010111**  | **AUIPC**  |
+
+
+* `LUI: rd = IMMU`
+* `AUIPC: rd = PC + IMMU`
+* where, IMMU: `{imm[31:12], 12'b0}`
+
+example:
+```
+x12 = x, x13 = y
+# small constants (0x123 of 12 bits)
+x = y + 0x123
+addi x12, x13, 0x123      --12 bits IMMI
+
+# large constants (we can't directly use addi)
+x = y + 0x12345678
+lui x14, 0x12345          --20 bits MSB(we have only 20 bits for lui)
+# x14 = 32'h12345000      --IMMU format specified above
+addi x14, x14, 0x678
+# x14 = 32'h12345678      --this is how we load the large constants value in a register.
+add x12, x13, x14         --x12 is a destination register and x14 is the large constant value.
+```
 
 
  
