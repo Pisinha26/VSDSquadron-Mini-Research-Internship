@@ -91,7 +91,9 @@ press i to insert and type the code and save the file using esc:wq and enter.
 
 ![Screenshot 2024-04-27 100730](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/6f3ea028-4222-4439-9abc-21df61835c2b)
 
+
 ### R-type Instruction
+
 
 <pre>
 | <sup>31</sup>  <b>funct7</b>  <sup>25</sup> | <sup>24</sup>  <b>rs2</b>  <sup>20</sup> | <sup>19</sup>  <b>rs1</b>  <sup>15</sup>| <sup>14</sup>  <b>funct3</b>  <sup>12</sup> | <sup>11</sup>  <b>rd</b>  <sup>7</sup> | <sup>6</sup>  <b>opcode</b>  <sup>0</sup> |
@@ -126,41 +128,42 @@ examples:
 ```
 Format: INSTR rd, rs1, rs2
 
-add x28, x12, x13   # x28 = x12 + x13
+* add x28, x12, x13   # x28 = x12 + x13
 
-example - let x12 = 00100, x13 = 00110
-          add -    00100
-                   00110
-            x28 =  01010
+  example - let x12 = 00100, x13 = 00110
+            add -    00100
+                     00110
+              x28 =  01010
 
-slt x28, x13, x12   # if x13 < x12
-                    # x28 = 1
-                    # else
-                    # x28 = 0
+* slt x28, x13, x12   # if x13 < x12
+                      # x28 = 1
+                      # else
+                      # x28 = 0
 
-example - let x12 = 00100, x13 = 00110
-          slt -    (00110) < (00100)
-                   x28 = 0
+  example - let x12 = 00100, x13 = 00110
+            slt -    (00110) < (00100)
+                     x28 = 0
 
-or x28, x12, x13    # x28 = x12 | x13
+* or x28, x12, x13    # x28 = x12 | x13
 
-example - let x12 = 00100, x13 = 00110
-          or -    00100
-                  00110
-            x28 = 00110  
+  example - let x12 = 00100, x13 = 00110
+            or -    00100
+                    00110
+              x28 = 00110  
 
-sll x28, x12, x13   # x28 = x12 << x13
+* sll x28, x12, x13   # x28 = x12 << x13
 
-example - let x12 = 00100, x13 = 00010
-          sll means shift x12(rs1) by x13(rs2) bits.
-              x12 = 00100 -(4)
-                    01000 -(8)
-              x28 = 10000 -(16)
-- left shift also means multiply by 2.  
+  example - let x12 = 00100, x13 = 00010
+            sll means shift x12(rs1) by x13(rs2) bits.
+                x12 = 00100 -(4)
+                      01000 -(8)
+                x28 = 10000 -(16)
+  - left shift also means multiply by 2.  
 ```
 
 
 ### I-Type Instruction
+
 
 <pre>
 | <sup>31</sup>           <b>imm[11:0]</b>           <sup>20</sup> | <sup>19</sup>  <b>rs1</b>  <sup>15</sup> | <sup>14</sup>  <b>funct3</b>  <sup>12</sup>| <sup>11</sup>  <b>rd</b>  <sup>7</sup> | <sup>6</sup>  <b>opcode</b>  <sup>0</sup> |
@@ -169,7 +172,6 @@ example - let x12 = 00100, x13 = 00010
 | <sup>31</sup>  <b>imm[11:5]</b>  <sup>25</sup> | <sup>24</sup>  <b>imm[4:0]</b>  <sup>20</sup> | <sup>19</sup>  <b>rs1</b>  <sup>15</sup> | <sup>14</sup>  <b>funct3</b>  <sup>12</sup>| <sup>11</sup>  <b>rd</b>  <sup>7</sup> | <sup>6</sup>  <b>opcode</b>  <sup>0</sup> |
 </pre>          
           
-</pre>
 
 * I-type involves a constant called `immediate value` for which 12 bits are allocated imm[11:0].
 * There are two registers-- source register `rs1` and destination register `rd`.
@@ -196,7 +198,6 @@ example - let x12 = 00100, x13 = 00010
 * `slti` & `sltiu` are the comparison instructions.
 
 
-
 * We calculate IMMI(immediate value) by doing a sign extension. There are 12 bits, so the remaining bits will be filled with sign bits, so eventually it is going to be 32 bits. So both `IMMI` and `rs1` are 32 bits, so the destination register `rd` will have the value of 32 bits.
 * When it comes to shift operation, we use the subset of the immediate value i.e. `imm[4:0]` which defines the shift amount and how many bits we want to shift either left or right.
 * Coming to the shift right arithmetic `srai`, it will add the sign bit.
@@ -213,24 +214,129 @@ addi x30, x12, -2   # x30 = x12 + (-2)     --(2's compliment binary value)
 
 complex example:
 ```
-How to perform  a=((b+2)<<c)&5 ??
+* How to perform  a=((b+2)<<c)&5 ??
 
-source registers--- (x12 = b), (x13 = c)
-destination register(rd)--- (x30 = a)
-temporary registers--- (x28 for t1) and (x29 for t2)
+  source registers--- (x12 = b), (x13 = c)
+  destination register(rd)--- (x30 = a)
+  temporary registers--- (x28 for t1) and (x29 for t2)
 
-logic--- t1 = b+2;
-         t2 = t1 << c;
-         a = t2 & 5;
+  logic--- t1 = b+2;
+           t2 = t1 << c;
+           a = t2 & 5;
 
-The RISC-V Assembly program would look something like this:
-       addi x28, x12, 2
-       sll x29, x28, x13
-       andi x30, x29, 5
+  The RISC-V Assembly program would look something like this:
+         addi x28, x12, 2
+         sll x29, x28, x13
+         andi x30, x29, 5
 ```
 
 
  ### S-Type Instruction
+ 
+
+`Load` and `Store` instructions transfer a value between the registers and memory. Loads are encoded in the I-type format and Stores are S-type. The effective byte address is obtained by adding register rs1 to the sign-extended 12-bit offset. Loads copy a value from memory to register rd. Stores copy the value in register rs2 to memory.
+
+![image](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/0fd907e7-f025-4d42-a646-650f8b471674)
+
+* Two kinds of instructions-- `Load I-type`  and  `Store S-type`
+* We use Load and Store instructions to transfer the data between register and memory.
+* Address= rs1 + SXT(imm[11:0])
+* Load : rd= M[Address]
+* Store : M[Address] = rs2
+* Load is going to read the memory and load the register.
+* Store is primarily used for writing the value in memory.
+
+
+| Instructions  | Name         | FMT  | opcode  | funct3  | Description      | Note  |
+|:----------------: |----------------- |:-------: |:----------: |:----------: |--------------------- |----------------------- |
+|       _lb_        | Load Byte        |    I     |  000_0011   |     000     | rd = M[rs1 + IMMI]   |                        |
+|       _lh_        | Load Half        |    I     |  000_0011   |     001     | rd = M[rs1 + IMMI]   |                        |
+|       _lw_        | Load Word        |    I     |  000_0011   |     010     | rd = M[rs1 + IMMI]   |  IMMI = SXT(imm[11:0]) |
+|       _lbu_       | Load Byte (U)    |    I     |  000_0011   |     100     | rd = M[rs1 + IMMI]   |                        |
+|       _lhu_       | Load Half (U)    |    I     |  000_0011   |     101     | rd = M[rs1 + IMMI]   |                        |
+|------------------ |----------------- |--------- |------------ |------------ |--------------------- |----------------------- |
+|       _sb_        | Store Byte       |    S     |  010_0011   |     000     | M[rs1 + IMMI] = rs2  |                        |
+|       _sh_        | Store Half Word  |    S     |  010_0011   |     001     | M[rs1 + IMMI] = rs2  | IMMI = SXT(imm[11:0])  |
+|       _sw_        | Store Word       |    S     |  010_0011   |     010     | M[rs1 + IMMI] = rs2  |                        |
+
+
+example:
+```
+* lw rd, offset(rs1)     # rd = M[rs1 + offset]
+     the address of the memory will be [rs1 + offset] and the value stored in that address will be loaded into the "rd" register.
+
+* sw rs2, offset(rs1)    # M[rs1 + offset] = rs2
+     the value of the register "rs2" will be stored in the memory at the address location [rs1 + offset].
+
+* c = a ^ b
+     "a" & "b" are the operands and "c" is the result and all three are stored in the memory location 0x8, 0xc, 0x14 respectively.
+     assume x12 will have a value of "a",
+            x13 will have a value of "b",
+            x30 = x12 ^ x13 is the result.
+     so we will use the "load" instruction to read the memory and "store" instruction to write the result back into memory.
+            x12 = load(0x8)            //value of "a" stored in 0x8 will be loaded into x12 address. 
+            x13 = load(0xc)            //value of "b" stored in 0xc will be loaded into x13 address. 
+            x30 = x12 ^ x13            //xor operstion
+            Store(0x14) x30            //value of result "c" will be stored into x30 address. 
+
+      The RISC-V Assembly Program would look something like this:
+            lw x12, 0x8(x0)             ---here source register rs1 value will be 
+            lw x13, 0xc(x0)
+            xor x30, x12, x13
+            sw x30, 0x14(x0)
+```
+
+
+### B-Type Instruction
+
+
+<pre>
+| <sup>31</sup>  <b>imm[12]</b>  | <sup>30</sup>  <b>imm[10:5]</b>  <sup>25</sup> | <sup>24</sup>  <b>rs2</b>  <sup>20</sup> | <sup>19</sup>  <b>rs1</b>  <sup>15</sup> | <sup>14</sup>  <b>funct3</b>  <sup>12</sup> | <sup>11</sup>  <b>imm[4:1]</b>  <sup>8</sup> | <sup>7</sup>  <b>imm[11]</b> | <sup>6</sup>  <b>opcode</b>  <sup>0</sup> |
+</pre>
+
+
+* The `opcode` indicates the branch type.
+* It involves immediate value which is [12:1] that is 12 bits. We need to do sign extension of immediate value and then add 0 at the lsb. This is how we have to calculate 32 bits from 12 bits and that is called immediate for branch type.
+* `IMMB = SXT({imm[12:1], 1'b0})`;
+* If the condition is true, the program counter will be updated as (pc + immediate value) primarily for non-sequential order execution.
+* `PC = PC + IMMB`;
+* and if the condition is false, the program counter will be increment by 4.
+* `PC = PC + 4`;
+
+
+| Instructions  | Name      | FMT  | opcode  | funct3  | Description                   | Note                      |
+|:----------------: |-------------- |:-------: |:----------: |:----------: |---------------------------------- |------------------------------ |
+|       _beq_       | Branch ==     |    B     |  110_0011   |     000     | if(rs1 == rs2)<br>  PC += IMMB    |                               |
+|       _bne_       | Branch !=     |    B     |  110_0011   |     001     | if(rs1 != rs2)<br>  PC += IMMB    |                               |
+|       _blt_       | Branch <      |    B     |  110_0011   |     100     | if(rs1 s<rs2)<br>  PC += IMMB     | IMMB = SXT({imm[12:1],1'b0})  |
+|       _bge_       | Branch ≥      |    B     |  110_0011   |     101     | if(rs1 >=s rs2)<br>  PC += IMMB   |                               |
+|      _bltu_       | Branch < (U)  |    B     |  110_0011   |     110     | if(rs1 u< rs2)<br>  PC += IMMB    |                               |
+|      _bgeu_       | Branch ≥ (U)  |    B     |  110_0011   |     111     | if(rs1 >=u rs2)<br>  PC +=  IMMB  |                               |
+
+
+example:
+```
+* Consider the flow instruction:
+      if(a>b)
+      out = a;
+      else
+      out = b;
+
+  To realize this logic, we allocate three registers-- two source registers x12 and x13 to have the value of "a" & "b" respectively.
+                                                       one destination register x30 to have the value of "out".
+
+  The RISC-V assembly program would look something like this:
+                 blt x13, x12, TRUE      # if the condition true (PC=PC+IMMB), it jumps to TRUE instruction else (PC=PC+4) to the next line.
+                 add x30, x13, x0        # out=b
+                 beq x0, x0, END         # unconditionally it will jump to END
+          TRUE:  add x30, x12, x0        #out=a
+```
+
+
+### J-Type Instruction
+
+
+
 
 
  
