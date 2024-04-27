@@ -81,8 +81,7 @@ $ vim hello.c
 press i to insert and type the code and save the file using esc:wq and enter.
 
 
-
-<b>RISC-V RV32I Instruction Set</b>
+## RISC-V RV32I Instruction Set</b>
 * `R-type` : Register to Register instructions
 * `I-type` : Register Immediate, Load, JLR, Ecall & Ebreak
 * `S-type` : Store
