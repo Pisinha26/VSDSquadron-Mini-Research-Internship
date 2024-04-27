@@ -89,7 +89,75 @@ press i to insert and type the code and save the file using esc:wq and enter.
 * `J-type` : Jump & Link
 * `U-type` : Load/Add upper Immediate
 
+![Screenshot 2024-04-27 100730](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/6f3ea028-4222-4439-9abc-21df61835c2b)
 
+### R-type Instruction
+
+<pre>
+| <sup>31</sup>  <b>funct7</b>  <sup>25</sup> | <sup>24</sup>  <b>rs2</b>  <sup>20</sup> | <sup>19</sup>  <b>rs1</b>  <sup>15</sup>| <sup>14</sup>  <b>funct3</b>  <sup>12</sup> | <sup>11</sup>  <b>rd</b>  <sup>7</sup> | <sup>6</sup>  <b>opcode</b>  <sup>0</sup> |
+</pre>
+
+* There are two source registers `rs2` and `rs1`.
+* Destination register `rd`.
+* To address 32 registers, basically we use 5 bits.
+* Together the `funct3` and `funct7` fields define the operation we want to do.
+* Different operations could be like ADD/SLT/SLTU, AND/OR/XOR, SLL/SRL, SUB/SRA.
+* `opcode` field of 7 bits defines whether instructions are of R-type.
+
+| Instructions  | Name                 | FMT  | opcode  | funct3  | funct7  | Description       |
+|:----------------: |------------------------- |:-------: |:----------: |:----------: |:----------: |---------------------- |
+|       _add_       | ADD                      |    R     |  011_0011   |     000     |  000_0000   | rd =rs1 + rs2         |
+|       _sub_       | SUB                      |    R     |  011_0011   |     000     |  010_0000   | rd =rs1 - rs2         |
+|       _xor_       | XOR                      |    R     |  011_0011   |     100     |  000_0000   | rd =rs1 ^ rs2         |
+|       _or_        | OR                       |    R     |  011_0011   |     110     |  000_0000   | rd =rs1 \| rs2        |
+|       _and_       | AND                      |    R     |  011_0011   |     111     |  000_0000   | rd =rs1 & rs2         |
+|       _sll_       | Shift left logical       |    R     |  011_0011   |     001     |  000_0000   | rd =rs1 << rs2        |
+|       _srl_       | Shift right logical      |    R     |  011_0011   |     101     |  000_0000   | rd =rs1 >>u rs2       |
+|       _sra_       | Shift right arithmetic   |    R     |  011_0011   |     101     |  010_0000   | rd =rs1 >>s rs2       |
+|       _slt_       | Set less than            |    R     |  011_0011   |     010     |  000_0000   | rd =(rs1 s< rs2)?1:0  |
+|      _sltu_       | Set less than(U)         |    R     |  011_0011   |     011     |  000_0000   | rd =(rs1 u< rs2)?1:0  |
+
+* `add` & `sub` are the arithmetic instructions.
+* `and`, `or` & `xor` are the logical instructions.
+* `sll`, `srl` & `sra` are the shift instructions.
+* `slt` & `sltu` are the comparison instructions.
+
+examples:
+```
+Format: INSTR rd, rs1, rs2
+
+add x28, x12, x13   # x28 = x12 + x13
+
+example - let x12 = 00100, x13 = 00110
+          add -    00100
+                   00110
+            x28 =  01010
+
+slt x28, x13, x12   # if x13 < x12
+                    # x28 = 1
+                    # else
+                    # x28 = 0
+
+example - let x12 = 00100, x13 = 00110
+          slt -    (00110) < (00100)
+                   x28 = 0
+
+or x28, x12, x13    # x28 = x12 | x13
+
+example - let x12 = 00100, x13 = 00110
+          or -    00100
+                  00110
+            x28 = 00110  
+
+sll x28, x12, x13   # x28 = x12 << x13
+
+example - let x12 = 00100, x13 = 00010
+          sll means shift x12(rs1) by x13(rs2) bits.
+              x12 = 00100 -(4)
+                    01000 -(8)
+              x28 = 10000 -(16)
+- left shift also means multiply by 2.  
+```
 
 
 ### The VSDSquadron Mini RISC-V development board – Features and Interfaces:
