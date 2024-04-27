@@ -269,14 +269,14 @@ example:
      the value of the register "rs2" will be stored in the memory at the address location [rs1 + offset].
 
 * c = a ^ b
-     "a" & "b" are the operands and "c" is the result and all three are stored in the memory location 0x8, 0xc, 0x14 respectively.
+     "a" & "b" are the operands and "c" is the result and all three are stored in the memory location 0x8, 0xc, and 0x14 respectively.
      assume x12 will have a value of "a",
             x13 will have a value of "b",
             x30 = x12 ^ x13 is the result.
-     so we will use the "load" instruction to read the memory and "store" instruction to write the result back into memory.
+     so we will use the "load" instruction to read the memory and the "store" instruction to write the result back into memory.
             x12 = load(0x8)            //value of "a" stored in 0x8 will be loaded into x12 address. 
             x13 = load(0xc)            //value of "b" stored in 0xc will be loaded into x13 address. 
-            x30 = x12 ^ x13            //xor operstion
+            x30 = x12 ^ x13            //xor operation
             Store(0x14) x30            //value of result "c" will be stored into x30 address. 
 
       The RISC-V Assembly Program would look something like this:
@@ -297,11 +297,11 @@ example:
 
 * The `opcode` indicates the branch type.
 * It involves immediate value which is [12:1] that is 12 bits. We need to do sign extension of immediate value and then add 0 at the lsb. This is how we have to calculate 32 bits from 12 bits and that is called immediate for branch type.
-* `IMMB = SXT({imm[12:1], 1'b0})`;
+* `IMMB = SXT({imm[12:1], 1'b0})`
 * If the condition is true, the program counter will be updated as (pc + immediate value) primarily for non-sequential order execution.
-* `PC = PC + IMMB`;
+* `PC = PC + IMMB`
 * and if the condition is false, the program counter will be increment by 4.
-* `PC = PC + 4`;
+* `PC = PC + 4` for next instruction.
 
 
 |   Instructions    |     Name      |    FMT   |    opcode   |    funct3   |         Description               |           Note                |
@@ -428,6 +428,170 @@ addi x14, x14, 0x678
 # x14 = 32'h12345678      --this is how we load the large constants value in a register.
 add x12, x13, x14         --x12 is a destination register and x14 is the large constant value.
 ```
+
+### Analyzing all the instructions 
+
+* <b>add r6, r2, r1</b>
+```
+* R-Type Instruction
+* opcode for ADD = 0110011
+* rd = r6 = 00110
+* rs1 = r2 = 00010
+* rs2 = r1 = 00001
+* funct3 = 000
+* funct7 = 0000000
+* 32-bit instruction: 0000000_00001_00010_000_00110_0110011
+```
+
+* <b>sub r7, r1, r2</b>
+```
+* R-Type Instruction
+* opcode for SUB = 0110011
+* rd = r7 = 00111
+* rs1 = r1 = 00001
+* rs2 = r2 = 00010
+* funct3 = 000
+* funct7 = 0100000
+* 32-bit instruction: 0100000_00010_000_00111_0110011
+```
+
+* <b>and r8, r1, r3</b>
+```
+* R-Type Instruction
+* opcode for AND = 0110011
+* rd = r8 = 01000
+* rs1 = r1 = 00001
+* rs2 = r3 = 00011
+* funct3 = 111
+* funct7 = 0000000
+* 32-bit instruction: 0000000_00011_00001_111_01000_0110011
+```
+
+* <b>or r9, r2, r5</b>
+```
+* R-Type Instruction
+* opcode for OR = 0110011
+* rd = r9 = 00110
+* rs1 = r2 = 00010
+* rs2 = r5 = 00101
+* funct3 = 110
+* funct7 = 0000000
+* 32-bit instruction: 0000000_00101_00010_110_01001_0110011
+```
+
+* <b>xor r10, r1, r4</b>
+```
+* R-Type Instruction
+* opcode for XOR = 0110011
+* rd = r10 = 01010
+* rs1 = r1 = 00001
+* rs2 = r4 = 00100
+* funct3 = 100
+* funct7 = 0000000
+* 32-bit instruction: 0000000_00100_00001_100_01010_0110011
+```
+
+* <b>slt r1, r2, r4</b>
+```
+* R-Type Instruction
+* opcode for ADD = 0110011
+* rd = r1 = 00001
+* rs1 = r2 = 00010
+* rs2 = r4 = 00100
+* funct3 = 010
+* funct7 = 0000000
+* 32-bit instruction: 0000000_00100_00010_010_00001_0110011
+```
+
+* <b>addi r12, r4, 5</b>
+```
+* I-Type Instruction
+* opcode for addi = 0010011
+* rd = r12 = 01100
+* rs1 = r4 = 00100
+* imm[11:0] = 5 = 000000000101
+* funct3 = 000
+* 32-bit instruction: 000000000101_00100_000_01100_0010011
+```
+
+* <b>sw r3, r1, 2</b>
+```
+* S-Type Instruction
+* opcode for sw = 0100011
+* rs2 = r3 = 00011
+* rs1 = r1 = 00001
+* imm[11:0] = 2 = 000000000010
+* funct3 = 010
+* 32-bit instruction: 0000000_00011_00001_010_00010_0100011
+```
+
+* <b>lw r13, r1, 2</b>
+```
+* I-Type Instruction
+* opcode for lw = 0000011
+* rd = r13 = 00110
+* rs1 = r1 = 00010
+* imm[11:0] = 2 = 000000000010
+* funct3 = 010
+* 32-bit instruction: 000000000010_00010_010_00110_0000011
+```
+
+* <b>beq r0, r0, 15</b>
+```
+* B-Type Instruction
+* opcode for beq = 1100011
+* rs1 = r0 = 00000
+* rs2 = r0 = 00000
+* imm[12:1] = 15 = 000000001111
+* funct3 = 000
+* 32-bit instruction: 0_000000_00000_00000_000_1111_0_1100011
+```
+
+* <b>bne r0, r1, 20</b>
+```
+* B-Type Instruction
+* opcode for bne = 1100011
+* rs1 = r0 = 00000
+* rs2 = r1 = 00001
+* imm[12:1] = 20 = 000000010100
+* funct3 = 001
+* 32-bit instruction: 0_000001_00001_00000_001_0100_0_1100011
+```
+
+* <b>sll r15, r1,r2</b>
+```
+* R-Type Instruction
+* opcode for sll = 0110011
+* rd = r15 = 01111
+* rs1 = r1 = 00001
+* rs2 = r2 = 00010
+* funct3 = 001
+* funct7 = 0000000
+* 32-bit instruction: 0000000_00010_00001_001_01111_0110011
+```
+
+
+* <b>srl r16, r14, r2</b>
+```
+* R-Type Instruction
+* opcode for srl = 0110011
+* rd = r16 = 10000
+* rs1 = r14 = 01110
+* rs2 = r2 = 00010
+* funct3 = 101
+* funct7 = 0000000
+* 32-bit instruction: 0000000_00010_01110_101_10000_0110011
+```
+
+
+
+
+
+
+
+
+
+
 
 
  
