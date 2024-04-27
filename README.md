@@ -434,7 +434,7 @@ add x12, x13, x14         --x12 is a destination register and x14 is the large c
 * <b>add r6, r2, r1</b>
 ```
 * R-Type Instruction
-* opcode for ADD = 0110011
+* opcode for add = 0110011
 * rd = r6 = 00110
 * rs1 = r2 = 00010
 * rs2 = r1 = 00001
@@ -446,7 +446,7 @@ add x12, x13, x14         --x12 is a destination register and x14 is the large c
 * <b>sub r7, r1, r2</b>
 ```
 * R-Type Instruction
-* opcode for SUB = 0110011
+* opcode for sub = 0110011
 * rd = r7 = 00111
 * rs1 = r1 = 00001
 * rs2 = r2 = 00010
@@ -458,7 +458,7 @@ add x12, x13, x14         --x12 is a destination register and x14 is the large c
 * <b>and r8, r1, r3</b>
 ```
 * R-Type Instruction
-* opcode for AND = 0110011
+* opcode for and = 0110011
 * rd = r8 = 01000
 * rs1 = r1 = 00001
 * rs2 = r3 = 00011
@@ -470,7 +470,7 @@ add x12, x13, x14         --x12 is a destination register and x14 is the large c
 * <b>or r9, r2, r5</b>
 ```
 * R-Type Instruction
-* opcode for OR = 0110011
+* opcode for or = 0110011
 * rd = r9 = 00110
 * rs1 = r2 = 00010
 * rs2 = r5 = 00101
@@ -482,7 +482,7 @@ add x12, x13, x14         --x12 is a destination register and x14 is the large c
 * <b>xor r10, r1, r4</b>
 ```
 * R-Type Instruction
-* opcode for XOR = 0110011
+* opcode for xor = 0110011
 * rd = r10 = 01010
 * rs1 = r1 = 00001
 * rs2 = r4 = 00100
@@ -494,7 +494,7 @@ add x12, x13, x14         --x12 is a destination register and x14 is the large c
 * <b>slt r1, r2, r4</b>
 ```
 * R-Type Instruction
-* opcode for ADD = 0110011
+* opcode for slt = 0110011
 * rd = r1 = 00001
 * rs1 = r2 = 00010
 * rs2 = r4 = 00100
