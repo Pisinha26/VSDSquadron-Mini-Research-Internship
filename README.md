@@ -618,7 +618,7 @@ $ ./a.out
 ![Screenshot 2024-04-30 153659](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/8f2e4da6-90ed-462e-acbd-3bb96edde0ab)
 
 
-**Now we will run the same C-code using RISCV GNU Compiler**
+**Now we will run the same C-code using RISCV GCC Compiler**
 
 * Download a vdi file from the link [vsdsquadron.vdi](https://forgefunder.com/~kunal/vsdsquadron.vdi)
 * we have to create a machine in the virtual box by adding this vdi file in the `optical drive` section at the start of the machine creation. Actually, this "vdi" file has all the preinstalled tools in the virtual box.
@@ -632,6 +632,12 @@ $ cat sum1ton.c
 $ riscv64-unknown-elf-gcc -O1 -mabi=lp64 -march=rv64i -o sum1ton.o sum1ton.c
 ```
 * This will generate an output file `sum1ton.o`.
+* This command actually compiles a source file "sum1ton.c" into an object file named "sum1ton.o".
+* One of the reason we chose to install riscv64, so to give us flexibility to target any 32-bit or 64-bit architecture.
+* Here's a breakdown of the options:
+       * -mabi=ilp32: This option specifies the ABI (Application Binary Interface) to use ilp32, which is for a 32-bit integer, long, and pointer size. This ABI is used for 32-bit RISC-V architectures.
+       * -march=rv32i: This option specifies the architecture to use rv32i, which indicates a 32-bit RISC-V base integer instruction set. This further confirms the targeting of a 32-bit architecture.
+* So even though the compiler itself is a riscv64 version (indicating it is capable of handling 64-bit RISC-V code), these specific options are used to compile code for a 32-bit RISC-V processor.  
 * Now, in the new tab, we will see what is the assembly code for the C-program that we are trying to run using the command--
 ```
 $ riscv64-unknown-elf-objdump -d sum1ton.o | less
