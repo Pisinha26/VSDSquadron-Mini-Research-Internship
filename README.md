@@ -620,6 +620,47 @@ $ ./a.out
 
 **Now we will run the same C-code using RISCV GNU Compiler**
 
+* Download a vdi file from the link [vsdsquadron.vdi](https://forgefunder.com/~kunal/vsdsquadron.vdi)
+* we have to create a machine in the virtual box by adding this vdi file in the `optical drive` section at the start of the machine creation. Actually, this "vdi" file has all the preinstalled tools in the virtual box.
+* Now in the terminal, use the command as--
+```
+$ cat sum1ton.c
+```
+* This command will open the C-code in the terminal itself.
+* The next command should be--
+```
+$ riscv64-unknown-elf-gcc -O1 -mabi=lp64 -march=rv64i -o sum1ton.o sum1ton.c
+```
+* This will generate an output file `sum1ton.o`.
+* Now, in the new tab, we will see what is the assembly code for the C-program that we are trying to run using the command--
+```
+$ riscv64-unknown-elf-objdump -d sum1ton.o | less
+```
+* This command will give a bunch of assembly language codes.
+* The section we are interested in is the "main" section.
+* So type "/main" and then press "n". The address of the main section here starts with `10184` and it increments by 4 because it is byte addressing as shown below--
+
+![Screenshot 2024-05-03 003124](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/1bb1d1c1-03f5-455c-915a-2889835d2bca)
+
+here, we have 11 instructions.
+
+* Now, quit this tab and in the previous tab, run the same command with a slight change--
+```
+$ riscv64-unknown-elf-gcc -Ofast -mabi=lp64 -march=rv64i -o sum1ton.o sum1ton.c
+```
+* Now, again in the new tab, run the same command--
+```
+$ riscv64-unknown-elf-objdump -d sum1ton.o | less
+```
+* Type "/main" and press "n". This time, the address of the main section starts with `100b0` and it increments by 4 as usual as shown below--
+
+![Screenshot 2024-05-03 004638](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/3d67e958-900b-4160-a918-b9975e04d2ee)
+
+but here also, we have 11 instructions but in most of the cases, the no of instructions gets reduced.
+
+
+
+
 
  
 
