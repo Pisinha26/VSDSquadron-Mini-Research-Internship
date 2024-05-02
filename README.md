@@ -583,14 +583,45 @@ add x12, x13, x14         --x12 is a destination register and x14 is the large c
 * 32-bit instruction: 0000000_00010_01110_101_10000_0110011
 ```
 
+## Lab Task 
+
+### C-Program Compilation
+**C-program to calculate  sum of n natural numbers**.
+
+* if "leafpad" is not installed, install using the command--
+```
+$ sudo snap install leafpad
+```
+
+![Screenshot 2024-04-29 204926](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/e67730e9-7bad-4203-b3c8-1c4e456c2fc5)
+
+* to open the `leafpad` editor (where we will write our C code) in the terminal--
+```
+$ leafpad sum1ton.c
+```
+
+* now, we will write our C code in the editor as shown below.
+
+![Screenshot 2024-04-29 205137](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/f136f9f8-dc7c-4e15-a876-20897d88b782)
+
+* save the code and close the editor.
+* now, in the terminal use the command as--
+```
+$ gcc sum1ton.c
+```
+
+* now to run this C-code and see the output, we have to use the command--
+```
+$ ./a.out
+```
+
+![Screenshot 2024-04-30 153659](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/8f2e4da6-90ed-462e-acbd-3bb96edde0ab)
 
 
+**Now we will run the same C-code using RISCV GNU Compiler**
 
 
-
-
-
-
+ 
 
 
 
