@@ -68,19 +68,6 @@ $ sudo make linux
 ![Screenshot 2024-04-24 014923](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/b92247d2-5787-4869-9e96-d9817b17fcfe)
 
 
-### Steps to install vim text editor
-```
-$ sudo apt update
-$ sudo apt install vim
-```
-after installing Vim, create a C program code as hello.c
-```
-$ cd Documents
-$ vim hello.c
-```
-press i to insert and type the code and save the file using esc:wq and enter.
-
-
 ## RISC-V RV32I Instruction Set</b>
 * `R-type` : Register to Register instructions
 * `I-type` : Register Immediate, Load, JLR, Ecall & Ebreak
@@ -620,8 +607,8 @@ $ ./a.out
 
 **Now we will run the same C-code using RISCV GCC Compiler**
 
-* Download a vdi file from the link [vsdsquadron.vdi](https://forgefunder.com/~kunal/vsdsquadron.vdi)
-* we have to create a machine in the virtual box by adding this vdi file in the `optical drive` section at the start of the machine creation. Actually, this "vdi" file has all the preinstalled tools in the virtual box.
+* Download a "vdi" file from the link [vsdsquadron.vdi](https://forgefunder.com/~kunal/vsdsquadron.vdi)
+* we have to create a machine in the virtual box by adding this "vdi" file in the `optical drive` section at the start of the machine creation. Actually, this "vdi" file has all the preinstalled tools in the virtual box.
 * Now in the terminal, use the command as--
 ```
 $ cat sum1ton.c
@@ -665,14 +652,95 @@ $ riscv64-unknown-elf-objdump -d sum1ton.o | less
 but here also, we have 11 instructions but in most of the cases, the no of instructions gets reduced.
 
 
+### Installation of spike and pk(Proxy kernel)
+* `Spike` is basically an open-source RISC-V ISA functional simulator developed primarily by the same team that created the RISC-V ISA Specification and serves as a reference for both software development and ISA verification with a primary purpose of simulating the behavior of a RISC-V processor executing RISC-V assembly code. Essentially, it allows developers to run RISC-V programs on their computers without needing actual RISC-V hardware.
+* To know more about spike and its installation refer to this [spike-github](https://github.com/riscv-software-src/riscv-isa-sim)
+* `pk(Proxy kernel)` is like a middleman between our computer's app and its hardware. It's like a basic manager that helps apps talk to the computer's parts, like the memory or the screen. It's simpler than a full-fledged operating system, and it's often used for learning or in small gadgets where there isn't much space for a big operating system. A proxy kernel in the context of RISC-V provides basic functionalities such as process management, memory management, and I/O operations.
+
+**Spike installation**
+```
+$ git clone https://github.com/riscv/riscv-isa-sim.git      
+$ cd riscv-isa-sim    
+$ mkdir build  
+$ cd build  
+$ ../configure --prefix=/opt/riscv
+$ sudo apt-get install device-tree-compiler
+$ make  
+$ sudo apt update  
+$ sudo apt install g++-8  
+$ make CXX=g++-8  
+$ sudo make install  
+$ echo 'export PATH=$PATH:/opt/riscv/bin' >> ~/.bashrc  
+$ source ~/.bashrc
+```
+
+**pk installation**
+```
+$ git clone https://github.com/riscv/riscv-pk.git    
+$ cd riscv-pk    
+$ mkdir build    
+$ cd build      
+$ ../configure --prefix=/home/vsduser/riscv --host=riscv64-unknown-elf --with-arch=rv64gc    
+$ make    
+$ sudo make install
+```
+
+* Rather than following the above steps, we actually downloaded a [vdi file](https://forgefunder.com/~kunal/riscv_workshop.vdi) which had all the eda tools preinstalled in it.
+* Now, we continue with our lab work. In the previous lab, we saw the contents of the assembly language program, and using the following command, we got the output--
+```
+$ gcc sum1ton.c
+$ ./a.out
+```
+* To get the same output using the RISC-V compiler as well, we need to type the following command--
+```
+$ riscv64-unknown-elf-gcc -Ofast -mabi=lp64 -march=rv64i -o sum1ton.o sum1ton.c
+$ spike pk sum1ton.o
+```
+* Now, we will try to debug and for that, we need to open the object dump using the command in the other tab--
+```
+$ riscv64-unknown-elf-objdump -d sum1ton.o | less
+```
+* We will get a bunch of assembly language code.
+
+![Screenshot 2024-05-03 004638](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/3781a8be-0dad-403a-89ca-1befc6372368)
+
+* To debug these codes, we need to open a debugger in spike using the command--
+```
+$ spike -d pk sum1ton.o
+```
+* The above command will open a debug over here. Now, we want the program counter(PC) to run till the starting address of the "main" i.e. 100b0 and after this address, we want to run it manually. For that, we need to write a command in the debug--
+```
+until pc 0 100b0
+```
+* The instruction in the address location `100b0` is `lui a0,0x21`. So, before this, we will try to know the content of "a0" in 64-bit format using the command--
+```
+reg 0 a0
+```
+* Now, press "enter", it will run the next instruction `lui a0,0x21` and now we will again try to know the content of "a0" using the same command--
+```
+reg 0 a0
+```
+* We will observe that the content of "a0" got modified and then press "enter" to get the next instruction `sp, sp, -16`. Here, we will look into the content of the stack pointer(sp) before using the command--
+```
+reg 0 sp
+```
+* 16 in decimal is 10 in hexadecimal. So, 10 got subtracted from the initial value.
+* Actually we want to know the content of "sp" before running the instruction which is there on address `100b4`. So, first quit it by giving the command `q` and then type the following command again--
+```
+$ spike -d pk sum1ton.o
+(spike) until pc 0 100b4
+(spike) reg 0 sp
+```
+* The above command will get the initial content of "sp". Now, press "enter" and type the command--
+```
+reg 0 sp
+```
+* This will show the content of "sp" after subtracting 10(hex) from the initial value of "sp".
+
+![Screenshot 2024-05-05 045328](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/eb549231-e124-449e-ace2-d8829d7ce214)
 
 
 
- 
-
-
-
- 
 ### The VSDSquadron Mini RISC-V development board – Features and Interfaces:
 
 * Core Processor – The board is powered by a CH32V003F4U6 chip with a 32-bit RISC-V core based on RV32EC instruction set, optimized for high-performance computing with support for 2-level interrupt nesting and supports 24MHz system main frequency in the product function.
