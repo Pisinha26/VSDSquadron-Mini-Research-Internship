@@ -1065,8 +1065,34 @@ $ ./piyushriscv
 ```
 $ gtkwave psinha_rv32.vcd
 ```
-* The GTKWAVE window will be opened as shown below--
+* This command will open the GTKWAVE window --
 
+![Screenshot 2024-05-10 020012](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/cfe1e6f4-f347-4f59-adad-b9c09715b3b6)
+
+* Now, let's analyze the waveform of each instruction using gtkwave.
+```
+1. ADD R6, R2, R1
+```
+![Screenshot 2024-05-10 013948](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/1e8a77ca-9223-4a20-a575-609460e4e5f9)
+
+```
+2. SUB R7, R1, R2
+```
+![Screenshot 2024-05-10 020757](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/30534df1-41d4-4a68-9b45-b435e8bbe4b6)
+
+```
+3. AND R8, R1, R3
+```
+![Screenshot 2024-05-10 021146](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/e515114f-616a-4d56-913f-54717846ebda)
+
+```
+4. OR R9, R2, R5
+```
+![Screenshot 2024-05-10 024355](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/5ce1cba8-4b5f-41c2-90ff-62eed240319b)
+
+```
+5. XOR R10, R1, R4
+```
 
 ### The VSDSquadron Mini RISC-V development board – Features and Interfaces:
 
