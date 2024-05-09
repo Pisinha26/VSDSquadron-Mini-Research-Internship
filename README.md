@@ -1073,26 +1073,56 @@ $ gtkwave psinha_rv32.vcd
 ```
 1. ADD R6, R2, R1
 ```
-![Screenshot 2024-05-10 013948](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/1e8a77ca-9223-4a20-a575-609460e4e5f9)
+![Screenshot 2024-05-10 024801](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/441b5916-9cec-429d-9001-027524886750)
 
 ```
 2. SUB R7, R1, R2
 ```
-![Screenshot 2024-05-10 020757](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/30534df1-41d4-4a68-9b45-b435e8bbe4b6)
+![Screenshot 2024-05-10 024955](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/a3940f6d-d2ff-491f-9cb9-ad39230a4663)
 
 ```
 3. AND R8, R1, R3
 ```
-![Screenshot 2024-05-10 021146](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/e515114f-616a-4d56-913f-54717846ebda)
+![Screenshot 2024-05-10 025111](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/cf8f2685-5035-4cf7-8509-064b7d681360)
 
 ```
 4. OR R9, R2, R5
 ```
-![Screenshot 2024-05-10 024355](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/5ce1cba8-4b5f-41c2-90ff-62eed240319b)
+![Screenshot 2024-05-10 025256](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/cd83f553-d402-4ef2-bfd2-5ad25f7a98aa)
 
 ```
 5. XOR R10, R1, R4
 ```
+![Screenshot 2024-05-10 025421](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/d55d17be-a19c-46dc-be8d-e3da0d649245)
+
+```
+6. SLT R1, R2, R4
+```
+![Screenshot 2024-05-10 025606](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/5f46772a-3fbc-42f3-9357-1ab7b01950d4)
+
+```
+7. ADDI R12, R4, 5
+```
+![Screenshot 2024-05-10 030416](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/29bc6ec7-4fc0-4119-8108-ab793802aa07)
+
+```
+8. SW R3, R1, 2
+```
+![Screenshot 2024-05-10 031333](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/d94e57e3-51b5-4aca-b183-975c568f94b2)
+
+```
+9. LW R13, R1, 2
+```
+![Screenshot 2024-05-10 031601](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/1890b48d-26da-498c-a1d5-fdafaa2b2833)
+
+```
+10. BEQ R0, R0, 15
+```
+![Screenshot 2024-05-10 031855](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/f3340c9d-caaa-4a7c-aaf8-09101b146b16)
+
+
+
+
 
 ### The VSDSquadron Mini RISC-V development board – Features and Interfaces:
 
