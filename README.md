@@ -1154,15 +1154,18 @@ The values stored in both the registers are equal, it increments the PC by 15 as
 * High-Speed Memory: Equipped with 2KB SRAM for volatile data storage, 16KB CodeFlash for program memory, and an additional 1920B for bootloader functionalities.
 * On-board Programmer: Features on-board CH32V305FBP6 single-wire programming protocol, enhancing development efficiency with seamless code deployment and debugging. NO NEED to purchase any additional adapters.
 
-### Block Diagram
+#### Block Diagram
 <b> The following block diagram shows the key components of the VSDSquadron Mini RISC-V development board.
 
 ![Screenshot 2024-04-26 183406](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/42265edd-3963-463e-88d7-fb47358d0c32)
 
 ![Screenshot 2024-04-26 183650](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/54a19abd-a722-4560-b804-09ad22d1201d)
 
+#### The following table shows CH32V003F4U6 RISC-V SoC IO Bank Assignment for communication Interface--
 
-### The following table lists the important components of the VSDSquadron Mini RISC-V development board--
+![Screenshot 2024-05-12 202919](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/84da2f7b-5d0c-4c3b-b5d6-d6947f664ae9)
+
+#### The following table lists the important components of the VSDSquadron Mini RISC-V development board--
 
 
 | <b>Board | <b>VSDSquadron Mini |
