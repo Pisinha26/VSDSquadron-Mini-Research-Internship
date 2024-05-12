@@ -743,7 +743,7 @@ reg 0 sp
 
 * Create a new directory named "piyushriscv".
 * Add two files `psinha_rv32.v`(verilog code) and `psinha_rv32_tb.v`(testbench code) in that directory.
-* We have actually copied these two codes from this [github repo](https://github.com/vinayrayapati/rv32i)
+* We have actually copied these two codes from this [github repo](https://github.com/vinayrayapati/rv32i) So, we will use these Verilog codes and the Testbench file of RISC-V that is already there.
 * The above two codes are shown below--
 
 `psinha_rv32.v`
@@ -1069,57 +1069,78 @@ $ gtkwave psinha_rv32.vcd
 
 ![Screenshot 2024-05-10 020012](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/cfe1e6f4-f347-4f59-adad-b9c09715b3b6)
 
+We have to analyze the output waveform of these instructions, but the problem is that these instructions are hard-coded by the designer itself, so they will not match the standard RISC-V ISA bit pattern--
+
+![Screenshot 2024-05-12 192122](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/d8a4c4bd-9290-44f7-85af-f11740da4e29)
+
+The above ISA shown in the figure is a hard-coded instruction, not the standard RISC-V ISA which we have figured out earlier.
 * Now, let's analyze the waveform of each instruction using gtkwave.
 ```
 1. ADD R6, R2, R1
 ```
+This instruction belongs to R-type instruction set, where R6 is the destination register and it will store the sum of values stored in registers R1 and  R2.
 ![Screenshot 2024-05-10 024801](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/441b5916-9cec-429d-9001-027524886750)
 
 ```
 2. SUB R7, R1, R2
 ```
+This instruction belongs to R-type instruction set, where R7 is the destination register and it will store the difference of values stored in registers R1 and  R2.
 ![Screenshot 2024-05-10 024955](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/a3940f6d-d2ff-491f-9cb9-ad39230a4663)
 
 ```
 3. AND R8, R1, R3
 ```
+This instruction belongs to R-type instruction set, where R8 is the destination register and it will hold the value of AND operation(R1 & R3) of the registers R1 and R3 bit by bit.
 ![Screenshot 2024-05-10 025111](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/cf8f2685-5035-4cf7-8509-064b7d681360)
+We can see in the above waveform the Bitwise AND operation of 3(0011) and 1(0001) which will give the output as 1(0001).
 
 ```
 4. OR R9, R2, R5
 ```
+This instruction belongs to R-type instruction set, where R9 is the destination register and it will hold the value of OR operation(R2 | R5) of the registers R2 and R5 bit by bit.
 ![Screenshot 2024-05-10 025256](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/cd83f553-d402-4ef2-bfd2-5ad25f7a98aa)
+Bitwise OR operation of 2(0010) and 5(0101) will be 7(0111).
 
 ```
 5. XOR R10, R1, R4
 ```
+This instruction belongs to R-type instruction set, where R10 is the destination register and it will hold the value of XOR operation(R1 ^ R4) of the registers R1 and R4 bit by bit.
 ![Screenshot 2024-05-10 025421](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/d55d17be-a19c-46dc-be8d-e3da0d649245)
+Bitwise XOR of 1(0001) and 4(0100) will be 5(0101).
 
 ```
 6. SLT R1, R2, R4
 ```
+This instruction belongs to R-type instruction set, where R1 is the destination register that sets to 1 if R2 is less than R4 else 0 if R2 is greater than R4.
 ![Screenshot 2024-05-10 025606](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/5f46772a-3fbc-42f3-9357-1ab7b01950d4)
+The value 2 is less than 4, so we will get output as 1.
 
 ```
 7. ADDI R12, R4, 5
 ```
+This instruction belongs to I-type instruction set, where R12 is the destination register that will store the value of R5 sum up with the immediate value 5.
 ![Screenshot 2024-05-10 030416](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/29bc6ec7-4fc0-4119-8108-ab793802aa07)
+The value 4 stored in the register will be added with an immediate value 5 and output is 9.
 
 ```
 8. SW R3, R1, 2
 ```
+This instruction belongs to S-type instruction set, that will store the value in the source register R3 at the address obtained by adding the immediate address 2 with the address located in register R1. 
 ![Screenshot 2024-05-10 031333](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/d94e57e3-51b5-4aca-b183-975c568f94b2)
+
 
 ```
 9. LW R13, R1, 2
 ```
+This instruction belongs to I-type instruction set where R13 is the destination register that will hold the value fetched from the memory location calculated as the "address value of R1 + immediate value".
 ![Screenshot 2024-05-10 031601](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/1890b48d-26da-498c-a1d5-fdafaa2b2833)
 
 ```
 10. BEQ R0, R0, 15
 ```
+This instruction belongs to B-type instruction. If the value stored in R0 is equal to(==) the value stored in R0, the program counter will be updated by (PC+15) else (PC+4) for the next instruction.
 ![Screenshot 2024-05-10 031855](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/f3340c9d-caaa-4a7c-aaf8-09101b146b16)
-
+The values stored in both the registers are equal, it increments the PC by 15 as shown in the waveform.
 
 
 
