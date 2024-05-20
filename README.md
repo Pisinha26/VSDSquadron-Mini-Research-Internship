@@ -1262,7 +1262,7 @@ Odd parity detectors are crucial for maintaining data integrity in various digit
 
 * **Boolean Expression:**
 To determine the parity, we use XOR operations. The output P can be expressed as:
-[ P = A \oplus B \oplus C \oplus D ]
+</br>[ P = A ⊕ B ⊕ C ⊕ D ]
 
 * **Logic Diagram:**
 ![Screenshot 2024-05-20 210556](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/058dfc96-147f-4aca-836f-abbe901f3190)
