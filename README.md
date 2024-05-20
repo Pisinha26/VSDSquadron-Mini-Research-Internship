@@ -1338,7 +1338,7 @@ Coming to the software part, we will run the above code on the VSDSquadron Mini 
 
 
 ### Application Video
-[click here to watch the project video](https://drive.google.com/file/d/1DFxe-viy-zvrCp7bxizWOiTLNtoJZD47/view?usp=drivesdk)
+[click here to watch the project video](https://drive.google.com/file/d/1DKQx3YcO8MSezxXWvp1RL3NCJ31y1y7Q/view?usp=drivesdk)
 
 
 
