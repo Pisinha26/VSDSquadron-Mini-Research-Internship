@@ -1163,7 +1163,7 @@ The values stored in both the registers are equal, it increments the PC by 15 as
 ![photo_2024-05-20_21-19-51](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/cb8d027e-8ad9-42c8-a9d9-c4a5a7ae08a2)
 
 #### Data Sheet
-Refer to this pdf-- 
+Refer to this pdf-- [vsd mini datasheet.pdf](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/files/15380577/vsd.mini.datasheet.pdf)
 
 #### VSD Squadron Board
 
@@ -1334,7 +1334,8 @@ int main() {
 ```
 Coming to the software part, we will run the above code on the VSDSquadron Mini RISC-V development board using PlatformIO in the VSCode application. 
 </br>Refer to this datasheet which contains the pin details of the VSDSquadron Mini Board and how to install the required software to run the Embedded C-code on the board. 
-[Datasheet]()
+[vsd mini datasheet.pdf](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/files/15380577/vsd.mini.datasheet.pdf)
+
 
 ### Application Video
 
