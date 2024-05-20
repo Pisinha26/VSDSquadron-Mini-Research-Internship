@@ -573,7 +573,7 @@ add x12, x13, x14         --x12 is a destination register and x14 is the large c
 ## Lab Task 
 
 ### C-Program Compilation
-**C-program to calculate  sum of n natural numbers**.
+**C-program to calculate  the sum of n natural numbers**.
 
 * if "leafpad" is not installed, install using the command--
 ```
@@ -620,7 +620,7 @@ $ riscv64-unknown-elf-gcc -O1 -mabi=lp64 -march=rv64i -o sum1ton.o sum1ton.c
 ```
 * This will generate an output file `sum1ton.o`.
 * This command actually compiles a source file "sum1ton.c" into an object file named "sum1ton.o".
-* One of the reason we chose to install riscv64, so to give us flexibility to target any 32-bit or 64-bit architecture.
+* One of the reasons we chose to install riscv64, so to give us flexibility to target any 32-bit or 64-bit architecture.
 * Here's a breakdown of the options:
       </br> - `mabi=ilp32`: This option specifies the ABI (Application Binary Interface) to use ilp32, which is for a 32-bit integer, long, and pointer size. This ABI is used for 32-bit RISC-V architectures.
       </br> - `march=rv32i`: This option specifies the architecture to use rv32i, which indicates a 32-bit RISC-V base integer instruction set. This further confirms the targeting of a 32-bit architecture.
@@ -1144,7 +1144,6 @@ The values stored in both the registers are equal, it increments the PC by 15 as
 
 
 
-
 ### The VSDSquadron Mini RISC-V development board – Features and Interfaces:
 
 * Core Processor – The board is powered by a CH32V003F4U6 chip with a 32-bit RISC-V core based on RV32EC instruction set, optimized for high-performance computing with support for 2-level interrupt nesting and supports 24MHz system main frequency in the product function.
@@ -1158,6 +1157,12 @@ The values stored in both the registers are equal, it increments the PC by 15 as
 <b> The following block diagram shows the key components of the VSDSquadron Mini RISC-V development board.
 
 ![Screenshot 2024-04-26 183406](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/42265edd-3963-463e-88d7-fb47358d0c32)
+
+#### Pin Configurations of CH32V003F4U6 Chip:
+
+![photo_2024-05-20_21-19-51](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/cb8d027e-8ad9-42c8-a9d9-c4a5a7ae08a2)
+
+#### VSD Squadron Board
 
 ![Screenshot 2024-04-26 183650](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/54a19abd-a722-4560-b804-09ad22d1201d)
 
@@ -1187,6 +1192,142 @@ The values stored in both the registers are equal, it increments the PC by 15 as
 | Sink Current per I/O Pin | 8mA |
 | Clock speed Processor: | 24MHz |
 | Memory | SRAM: 2kb on-chip volatile SRAM, 16kb external program memory |
+
+
+## 4-BIT ODD PARITY DETECTOR
+
+An odd parity detector is primarily used in digital communication and data storage systems to ensure the integrity of data. Here are some key applications:
+
+* 1. Error Detection in Data Transmission:
+   - `Parity Bits`: When transmitting data over a network or between devices, a parity bit (either odd or even) is often appended to each byte or word of data. The odd parity detector at the receiver end checks if the data has been corrupted during transmission by ensuring the number of '1s matches the expected parity.
+   - `Serial Communication`: Protocols like UART (Universal Asynchronous Receiver/Transmitter) use parity bits for error checking. If the parity bit doesn't match the expected value, the receiver knows there has been an error in transmission.
+
+* 2. Memory Storage:
+   - `Error Detection in Memory`: Computer memory (like RAM) can use parity bits to detect errors. Each byte of data stored in memory has an associated parity bit. When data is read from memory, an odd parity detector verifies the parity to ensure data integrity.
+
+* 3. Digital Systems and Microcontrollers:
+   - `Microcontroller Systems`: Embedded systems often include parity checks in communication protocols between microcontrollers and peripherals to detect errors.
+   - `Bus Communication`: Data buses in computers and other digital systems use parity bits for error detection to ensure data integrity during data transfer between components.
+
+* 4. File Transfer Protocols:
+   - `Network Protocols`: Protocols such as FTP, HTTP, and others may use parity checks as part of their error-checking mechanisms to ensure data integrity during file transfers.
+
+* 5. Disk Storage:
+   - `Hard Drives and SSDs`: Storage devices use parity bits to detect and sometimes correct errors in data read from or written to the disk. RAID (Redundant Array of Independent Disks) systems often use parity for error detection and correction across multiple disks.
+
+* 6. Communication Systems:
+   - `Modems and Routers`: Devices involved in network communication use parity bits to detect errors in transmitted data packets, ensuring reliable data transfer across the network.
+
+**Example Scenario:**
+* Data Transmission:
+Consider a simple data transmission scenario where a 4-bit data word is transmitted with an odd parity bit:
+
+1. Transmitter Side:
+   - Data to be transmitted: 1010
+   - Calculate parity bit using an odd parity detector: The number of '1's in 1010 is 2 (even), so the parity bit should be 1 to make the total number of '1's odd.
+   - Transmitted data: 10101 (4-bit data + 1-bit parity)
+
+2. Receiver Side:
+   - Received data: 10101
+   - Separate the parity bit and the data: Data = 1010, Parity bit = 1
+   - Use an odd parity detector to check the received data: Calculate the parity of 1010 (which is 2 '1's, so even) and compare with the received parity bit 1.
+   - If the parity matches the expectation (odd number of '1's including the parity bit), the data is considered valid; otherwise, it indicates an error.
+
+**Summary:**
+Odd parity detectors are crucial for maintaining data integrity in various digital communication and storage systems by providing a simple yet effective method for error detection. They help ensure that data received or stored is the same as the data originally sent or written, thus safeguarding against data corruption and transmission errors.
+
+* **TRUTH TABLE**
+
+| **A** | **B** | **C** | **D** | **_Output(LED)_** |
+|-------|-------|-------|-------|:-----------------:|
+| 0     | 0     | 0     | 0     |         0         |
+| 0     | 0     | 0     | 1     |         1         |
+| 0     | 0     | 1     | 0     |         1         |
+| 0     | 0     | 1     | 1     |         0         |
+| 0     | 1     | 0     | 0     |         1         |
+| 0     | 1     | 0     | 1     |         0         |
+| 0     | 1     | 1     | 0     |         0         |
+| 0     | 1     | 1     | 1     |         1         |
+| 1     | 0     | 0     | 0     |         1         |
+| 1     | 0     | 0     | 1     |         0         |
+| 1     | 0     | 1     | 0     |         0         |
+| 1     | 0     | 1     | 1     |         1         |
+| 1     | 1     | 0     | 0     |         0         |
+| 1     | 1     | 0     | 1     |         1         |
+| 1     | 1     | 1     | 0     |         1         |
+| 1     | 1     | 1     | 1     |         0         |
+
+* **Boolean Expression:**
+To determine the parity, we use XOR operations. The output P can be expressed as:
+[ P = A \oplus B \oplus C \oplus D ]
+
+* **Logic Diagram:**
+![Screenshot 2024-05-20 210556](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/058dfc96-147f-4aca-836f-abbe901f3190)
+
+### Project Objective:
+The objective of this project is to design and implement a 4-bit odd parity detector using the RISC-V Squadron Mini Board and Embedded C programming. The project will involve developing a digital logic circuit that can determine if a 4-bit binary input has an odd number of '1s. This project aims to enhance understanding of digital logic design and embedded systems programming using the RISC-V architecture. It will also demonstrate the practical application of parity detection in ensuring data integrity in digital communication systems.
+
+### Circuit Diagram:
+
+
+
+### Embedded C Code to implement the 4-bit odd parity detector
+
+```
+#include <debug.h>
+#include <ch32v00x.h>
+int xor(int bit1, int bit2) {
+    return bit1 ^ bit2;
+}
+void GPIO_Config(void) {
+    GPIO_InitTypeDef GPIO_InitStructure = {0};
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE); // Enable the clock for port D
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE); // Enable the clock for port C
+    
+    // Input Pins Configuration
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_4;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; // Input Type with pull-up
+    GPIO_Init(GPIOD, &GPIO_InitStructure);
+
+    // Output Pin Configuration
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; // Output Type
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz; // Speed
+    GPIO_Init(GPIOC, &GPIO_InitStructure);
+}
+int main() {
+    uint8_t bit1, bit2, bit3, bit4, parity;
+    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
+    SystemCoreClockUpdate();
+    Delay_Init();
+    GPIO_Config();
+
+    while (1) {
+        // Read the input values
+        bit1 = GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_1);
+        bit2 = GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_2);
+        bit3 = GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_3);
+        bit4 = GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_4);
+        
+        // Odd Parity Logic
+        parity = xor(xor(bit1, bit2), xor(bit3, bit4)); // XOR all bits together
+        
+        // Write the Parity output
+        if (parity == 1) {
+            GPIO_WriteBit(GPIOC, GPIO_Pin_5, SET); // LED on for Odd Parity
+        } else {
+            GPIO_WriteBit(GPIOC, GPIO_Pin_5, RESET); // LED off for Even Parity
+        }
+    }
+}
+```
+
+
+
+
+
+
+
 
 
 
