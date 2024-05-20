@@ -1162,6 +1162,9 @@ The values stored in both the registers are equal, it increments the PC by 15 as
 
 ![photo_2024-05-20_21-19-51](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/cb8d027e-8ad9-42c8-a9d9-c4a5a7ae08a2)
 
+#### Data Sheet
+Refer to this pdf-- 
+
 #### VSD Squadron Board
 
 ![Screenshot 2024-04-26 183650](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/54a19abd-a722-4560-b804-09ad22d1201d)
@@ -1267,9 +1270,17 @@ To determine the parity, we use XOR operations. The output P can be expressed as
 ### Project Objective:
 The objective of this project is to design and implement a 4-bit odd parity detector using the RISC-V Squadron Mini Board and Embedded C programming. The project will involve developing a digital logic circuit that can determine if a 4-bit binary input has an odd number of '1s. This project aims to enhance understanding of digital logic design and embedded systems programming using the RISC-V architecture. It will also demonstrate the practical application of parity detection in ensuring data integrity in digital communication systems.
 
+### Components Required
+```
+1. VSD Squadron Mini Board
+2. Breadboard
+3. Jumper wires
+4. 4 Push Buttons
+5. 1 piece of LED
+```
+
 ### Circuit Diagram:
-
-
+![Screenshot 2024-05-20 232646](https://github.com/Pisinha26/VSDSquadron-Mini-Research-Internship/assets/140955475/4658fdf1-fe7f-42ff-b672-64d2e1ed2a92)
 
 ### Embedded C Code to implement the 4-bit odd parity detector
 
@@ -1321,6 +1332,12 @@ int main() {
     }
 }
 ```
+Coming to the software part, we will run the above code on the VSDSquadron Mini RISC-V development board using PlatformIO in the VSCode application. 
+</br>Refer to this datasheet which contains the pin details of the VSDSquadron Mini Board and how to install the required software to run the Embedded C-code on the board. 
+[Datasheet]()
+
+### Application Video
+
 
 
 
